@@ -6,12 +6,19 @@ Pid::Pid() {
     this->kd = 0;
     this->integral = 0;
     this->prev_error = 0;
+    this->goal = 0;
+    this->current = 0;
+    this->error = 0;
 }
 
 void Pid::setGain(float kp, float ki, float kd) {
     this->kp = kp;
     this->ki = ki;
     this->kd = kd;
+}
+
+void Pid::setDt(float dt) {
+    this->dt = dt;
 }
 
 void Pid::setGoal(float goal) {
@@ -23,9 +30,9 @@ void Pid::update(float current) {
 }
 
 float Pid::calc() {
-    this->error = this->goal - this->current;
-    this->integral += this->error;
-    float derivative = this->error - this->prev_error;
-    this->prev_error = this->error;
-    return this->kp * this->error + this->ki * this->integral + this->kd * derivative;
+    error = goal - current;
+    integral += error*dt;
+    float derivative = (error - prev_error)/dt;
+    prev_error = error;
+    return kp * error + ki * integral + kd * derivative;
 }
