@@ -36,3 +36,11 @@ float Pid::calc() {
     prev_error = error;
     return kp * error + ki * integral + kd * derivative;
 }
+
+void Pid::reset() {
+    this->integral = 0;
+    this->prev_error = 0;
+    this->goal = 0;
+    this->current = 0;
+    this->error = 0;
+}

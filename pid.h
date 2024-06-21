@@ -8,6 +8,7 @@ class Pid {
     void setGoal(float goal);
     void setDt(float dt);
     float calc();
+    void reset();
 
    private:
     float kp, ki, kd;
